@@ -27,7 +27,7 @@
 
     if(isset($validacao)){
         $_SESSION["id_logado"] = $id;
-        $_SESSION["nome"]=$nome;
+        $_SESSION["nome_perfil"]=$nome;
         $_SESSION["email"]=$email;
         header("location: Index.php");
     }

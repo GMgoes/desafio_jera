@@ -1,5 +1,5 @@
 <?php
-    /*Responsável por receber os dados da classe CriarConta.php e inserir no BD, após inserção dos dados, retorna à própria página, com uma sessão, pode ser uma sessão de sucesso ou de falha, dependendo de como foi a tentativa de inserção no BD.
+    /*Responsável por receber os dados da classe CriarConta.php e inserir no BD, após inserção dos dados, retorna à própria página, com uma sessão, pode ser uma sessão de sucesso ou de falha, dependendo de como foi a tentativa de inserção no BD. Além disso essa classe agora está fazendo também a criação de um perfil vinculado ao usuário cadastrado.
 
     */
     $email = $_POST["email"];
@@ -14,8 +14,12 @@
     $sqlprep = $conexao ->prepare($sql);
     $sqlprep -> bind_param("ssss",$email,$nome,$password,$nascimento);
     if($sqlprep -> execute()){
+        $sql = "insert into perfil (nome_perfil,email_usuario) values (?,?)";
+        $sqlprep = $conexao ->prepare($sql);
+        $sqlprep -> bind_param("ss",$nome,$email);
+        $sqlprep -> execute();
         $_SESSION["cadastrado"]="Usuário cadastrado";
-        $_SESSION["nome"] = $nome;
+        $_SESSION["nome_perfil"] = $nome;
         header("location: CriarConta.php"); 
 
     }

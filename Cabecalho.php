@@ -14,10 +14,10 @@
 			?>
 			<ul class="nav justify-content-center mt-3">
 				<li class="nav-item">
-					<a class="nav-link active fw-bolder fw-bolder" style="color:#8B4513;" href="#"><?php echo $_SESSION["nome"] ?></a>
+					<a class="nav-link active fw-bolder fw-bolder" style="color:#8B4513;" href="#"><?php echo $_SESSION["nome_perfil"] ?></a>
 				</li>
 				  <li class="nav-item">
-				    <a class="nav-link fw-bolder" style="color:#8B4513;" href="#">FAVORITOS</a>
+				    <a class="nav-link fw-bolder" style="color:#8B4513;" href="#">PARA ASSISTIR</a>
 				</li>
 				<li class="nav-item">
 				    <a class="nav-link fw-bolder" style="color:#8B4513;" href="#">FILMES</a>
