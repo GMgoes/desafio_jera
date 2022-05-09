@@ -16,7 +16,7 @@
             if(isset($_SESSION["cadastrado"])):
         ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-               Usuário: <strong><?php echo $_SESSION["nome"]; ?></strong> Cadastrado!
+               Usuário: <strong><?php echo $_SESSION["nome_perfil"]; ?></strong> Cadastrado!
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <?php
@@ -43,7 +43,7 @@
                     </div>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-outline-success mt-2" style="color: white;">Cadastrar</button>
-                        <a class="btn btn-outline-primary mt-2" style="color: white;" href="Login.php">Voltar</a>  
+                        <a class="btn btn-outline-primary mt-2" style="color: white;" href="Index.php">Voltar</a>  
                     </div>
                 </form>
         </div>

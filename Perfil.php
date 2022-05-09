@@ -11,11 +11,11 @@
 	<body style="background-color:  #66CDAA;">
 		<div class="container">
 			<div class="row">
-    		<div class="col-sm">
 			<?php 
 	        require_once("Conexao.php");
-
-	        $sql = "select nome_perfil from perfil ";
+	        session_start();
+	        $id_perfil_logado = $_SESSION["id_usuario"];
+	        $sql = "select nome_perfil from perfil where id_usuario = '$id_perfil_logado'";
 	        $resultadoSql = mysqli_query($conexao, $sql);
 	        $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
 	        $vetorTodosregistro = array();
@@ -24,13 +24,13 @@
 	            $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
 	        }
 	        foreach ($vetorTodosregistro as $umRegistro){ ?>
-	            <div style="float:left;">
+	            <div class="col-md-6">
 	            	<img src="usuario.jpg" style ="width:150px;"class="card-img-top" alt="...">	
-	            	<a href="Index.php"><?php echo $umRegistro["nome_perfil"]; ?></a>
+	            	<a href="Inicio.php"><?php echo $umRegistro["nome_perfil"]; ?></a>
 	            </div>
 	        <?php
 	        }?>
+			</div>
 		</div>
-		
 	</body>
 </html>

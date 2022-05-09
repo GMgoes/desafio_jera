@@ -26,10 +26,10 @@
     endforeach;
 
     if(isset($validacao)){
-        $_SESSION["id_logado"] = $id;
-        $_SESSION["nome_perfil"]=$nome;
+        $_SESSION["id_usuario"] = $id;
+        $_SESSION["nome_usuario"]=$nome;
         $_SESSION["email"]=$email;
-        header("location: Index.php");
+        header("location: Perfil.php");
     }
     /*
     TODO: implementar quando o usuário digitar credenciais que não existem no BD.

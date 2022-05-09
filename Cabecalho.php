@@ -14,7 +14,7 @@
 			?>
 			<ul class="nav justify-content-center mt-3">
 				<li class="nav-item">
-					<a class="nav-link active fw-bolder fw-bolder" style="color:#8B4513;" href="#"><?php echo $_SESSION["nome_perfil"] ?></a>
+					<a class="nav-link active fw-bolder fw-bolder" style="color:#8B4513;" href="Perfil.php"><?php echo $_SESSION["nome_perfil"] ?></a>
 				</li>
 				  <li class="nav-item">
 				    <a class="nav-link fw-bolder" style="color:#8B4513;" href="#">PARA ASSISTIR</a>

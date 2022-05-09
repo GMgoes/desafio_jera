@@ -14,14 +14,9 @@
     $sqlprep = $conexao ->prepare($sql);
     $sqlprep -> bind_param("ssss",$email,$nome,$password,$nascimento);
     if($sqlprep -> execute()){
-        $sql = "insert into perfil (nome_perfil,email_usuario) values (?,?)";
-        $sqlprep = $conexao ->prepare($sql);
-        $sqlprep -> bind_param("ss",$nome,$email);
-        $sqlprep -> execute();
-        $_SESSION["cadastrado"]="Usuário cadastrado";
         $_SESSION["nome_perfil"] = $nome;
-        header("location: CriarConta.php"); 
-
+        $_SESSION["email_perfil"] = $email;
+        header("location: CriarPerfil.php"); 
     }
     /*
     TODO: implementar quando o usuário tentar criar com um e-mail que já existe no BD.
