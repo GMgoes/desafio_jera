@@ -1,5 +1,5 @@
 <?php 
-    //Classe responsável por validar se as credenciais inseradas na Login.php são registradas no BD.
+    //Classe responsável por validar se as credenciais inseradas na Login.php estão registradas no BD.
 
     require_once("Conexao.php");
     session_start();
