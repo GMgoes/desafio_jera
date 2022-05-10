@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="mt-2 col-4">
                     <form>      
-                        <input class="form-control text-dark" style="opacity:0.7;" placeholder="Buscar">
+                        <input id="pesquisa" class="form-control text-dark" style="opacity:0.7;" placeholder="Buscar">
                     </form>
                 </div>
             </div>

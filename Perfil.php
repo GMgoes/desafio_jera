@@ -38,7 +38,7 @@
 	    
 		?>
 	            <div class="col-3" style="margin-top: 200px;">
-	            	<img src="usuario.png" class="card-img-top" alt="imagem de usuário png">	
+	            	<img src="usuario.png" class="card-img-top border border-success" alt="imagem de usuário png">	
 	            	<form method="POST" action="Inicio.php">
 	            		<input type="hidden" name="nome" value="<?php echo ($auxiliar_nome) ?>">
 	            		<input type="hidden" name="id_usuario" value="<?php echo ($auxiliar_id) ?>">
