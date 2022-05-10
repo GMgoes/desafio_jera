@@ -1,55 +1,64 @@
-<!-- Essa será uma das nossas classes principais, contendo a listagem dos filmes provenientes da API. -->
+<!-- Essa será uma das nossas classes principais, contendo a listagem dos filmes provenientes da API e o menu principal para o usuário, bem como o aceso aos perfis do usuário. -->
 
 <html>
     <head>
         <title>Zilften</title>
-
+        <style type="text/css">
+            #letras-navbar{
+                color:#8B4513;
+            }
+            #background{
+               background-color:  #66CDAA; 
+            }            
+        </style>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">    
     </head>
-    <body style="background-color:  #66CDAA;">
+    <?php 
+    session_start();
+    require_once("Conexao.php");
+    $nome_perfil = $_POST["nome"];
+    $id_usuario = $_POST["id_usuario"];
+    ?>
+    <body id="background">
         <div class="container-fluid">
             <div>
-            <?php 
-            session_start();
-            require_once("Conexao.php");
-            $nome_perfil = $_POST["nome"];
-            $id_usuario = $_POST["id_usuario"];
-            ?>
                 <ul class="nav justify-content-center mt-3">
                     <li class="nav-item">
-                        <a class="nav-link fw-bolder" style="color:#8B4513;" href="Perfil.php"><?php echo $nome_perfil; ?></a>
+                        <a id="letras-navbar" class="nav-link fw-bolder" href="Perfil.php"><?php echo $nome_perfil; ?></a>
                     </li>
                       <li class="nav-item">
-                        <a class="nav-link fw-bolder" style="color:#8B4513;" href="#">PARA ASSISTIR</a>
+                        <a id="letras-navbar" class="nav-link fw-bolder" href="#">MINHA LISTA</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bolder" style="color:#8B4513;" href="#">FILMES</a>
+                        <a id="letras-navbar" class="nav-link fw-bolder" href="#">FILMES</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bolder" style="color:#8B4513;" href="#">SÉRIES</a>
+                        <a id="letras-navbar" class="nav-link fw-bolder" href="#">SÉRIES</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bolder" style="color:#8B4513;"href="Deslogar.php">SAIR</a>
+                        <a id="letras-navbar" class="nav-link fw-bolder" href="Deslogar.php">SAIR</a>
                     </li>
                 </ul>
             </div>  
-            <div class="mt-3 w-25">
-                <form>      
-                    <input class="form-control text-dark" style="opacity:0.7;" id="exampleInputEmail1" placeholder="Buscar">
-                </form>
+            <div class="row">
+                <div class="mt-2 col-4">
+                    <form>      
+                        <input class="form-control text-dark" style="opacity:0.7;" placeholder="Buscar">
+                    </form>
+                </div>
             </div>
-            <?php 
-            $sql = "select * from filmes where id_perfil = '$id_usuario'";
-            $resultadoSql = mysqli_query($conexao, $sql);
-            $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
-            $vetorTodosregistro = array();
-            while($vetorUmregistro != null){
-                array_push($vetorTodosregistro, $vetorUmregistro);
-                $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
-            }
-            ?> 
-            <div class="row w-50">
-                <div class="mt-4">
+    <?php 
+    $sql = "select * from filmes where id_perfil = '$id_usuario'";
+    $resultadoSql = mysqli_query($conexao, $sql);
+    $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
+    $vetorTodosregistro = array();
+    while($vetorUmregistro != null){
+        array_push($vetorTodosregistro, $vetorUmregistro);
+        $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
+    }
+    ?> 
+            <div class="row">
+                <div class="mt-2 col-6">
                     <div class="card">
                         <div class="card-body" id="resultado">
                             <table class="table">
@@ -65,11 +74,30 @@
                                     <td style="text-align:center;"><?php echo date('Y', strtotime($umRegistro["data_lancamento"])); ?></td>
                                 </tr>
                                 <?php } ?>
-                            </table>
-                  
+                            </table>                 
                         </div>
                     </div>
-                </div>    
+                </div>  
+                <div class="mt-2 col-6">
+                    <div class="card">
+                        <div class="card-body" id="resultado">
+                            <table class="table">
+                                <tr>
+                                    <th style="text-align:left;">Filme</th>
+                                    <th style="text-align:left;">Descricao</th>
+                                    <th style="text-align:center;">Data de Lancamento</th>
+                                </tr>
+                                <?php foreach ($vetorTodosregistro as $umRegistro){ ?>
+                                <tr>
+                                    <td style="text-align:left;"><?php echo $umRegistro["nome"];?></td>
+                                    <td style="text-align:left;"><?php echo $umRegistro["descricao"];?></td>
+                                    <td style="text-align:center;"><?php echo date('Y', strtotime($umRegistro["data_lancamento"])); ?></td>
+                                </tr>
+                                <?php } ?>
+                            </table>                 
+                        </div>
+                    </div>
+                </div>  
             </div>
         </div>
     <!-- JavaScript Bundle with Popper -->
