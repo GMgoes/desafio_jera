@@ -58,18 +58,19 @@
     }
     ?> 
             <div class="row">
-                <div class="mt-2 col-6">
+                <div class="mt-2 col-12">
                     <div class="card">
                         <div class="card-body" id="resultado">
                             <table class="table">
                                 <tr>
+                                    <th></th>
                                     <th style="text-align:left;">Filme</th>
                                     <th style="text-align:left;">Descricao</th>
                                     <th style="text-align:center;">Data de Lancamento</th>
                                 </tr>
                                 <tr>
                                 <?php
-                                $filme_buscado = "007";
+                                    $filme_buscado = "velozes";
                                     $url = "https://api.themoviedb.org/3/search/movie?api_key=ad6b74208be55f7885c94593518b9477&query={$filme_buscado}&language=pt-BR";
                                     $json = file_get_contents($url);
 
@@ -80,17 +81,17 @@
                                         $url_pagina_atual = "https://api.themoviedb.org/3/search/movie?api_key=ad6b74208be55f7885c94593518b9477&query={$filme_buscado}&language=pt-BR&page={$x}";
                                         $json_pagina_atual = file_get_contents($url_pagina_atual);
                                         $objeto_atual = json_decode($json_pagina_atual);
-                                    foreach($objeto_atual->results as $resultado){
-                                        echo $resultado->title;
-                                        echo "<br/>";
+                                        foreach($objeto_atual->results as $resultado){
+                                ?>
+                                        <img src="..." class="img-fluid" alt="Responsive image">
+                                        <td style="text-align:left;"><?php echo $resultado->title;?></td>
+                                        <td style="text-align:left; text-align: justify;"><?php echo $resultado->overview;?></td>      
+                                        <td style="text-align:center;"><?php echo $resultado->release_date;?></td>  
+                                        </tr>
+                                <?php
                                         }
                                     }
-                                ?>
-                                    <td style="text-align:left;"><?php echo $umRegistro["nome"];?></td>
-                                    <td style="text-align:left;"><?php echo $umRegistro["descricao"];?></td>
-                                    <td style="text-align:center;"><?php echo date('Y', strtotime($umRegistro["data_lancamento"])); ?></td>
-                                </tr>
-                                <?php } ?>
+                                ?>                                                                    
                             </table>                 
                         </div>
                     </div>
