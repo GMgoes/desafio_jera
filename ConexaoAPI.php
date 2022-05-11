@@ -18,6 +18,12 @@ echo "<br/>";
 }
 
 }
+//<?php foreach ($vetorTodosregistro as $umRegistro){
+//<tr>
+//<td style="text-align:left;"><?php echo $umRegistro["nome"];</td>
+//<td style="text-align:left;"><?php echo $umRegistro["descricao"];</td>
+//<td style="text-align:center;"><?php echo date('Y', strtotime($umRegistro["data_lancamento"])); //</td>
+//</tr>
 ///json_encode($json);
 
 //foreach($objeto->results as $resultado){
