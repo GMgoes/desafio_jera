@@ -4,12 +4,24 @@
     <head>
         <title>Zilften</title>
         <style type="text/css">
-            #letras-navbar{
-                color:#8B4513;
-            }
             #background{
-               background-color:  #66CDAA; 
-            }            
+            }
+            #letras-navbar{
+                color:#32CD32;
+            }      
+            #filme_buscado{
+                background: url(iconelupa.png) no-repeat center right;
+                paddin: 5px;
+                border: none;
+                width: 20px;
+                height: 45px;
+                transition: all 0.5s linear;
+            }#filme_buscado:focus{
+                width: 200px;
+                height: 45px;
+                border-bottom: solid 1px black;
+                outline: none;
+            }          
         </style>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">    
     </head>
@@ -21,7 +33,7 @@
     ?>
     <body id="background">
         <div class="container-fluid">
-            <div>
+            <div class="mt-2" style="border: solid 1px #8FBC8F;">
                 <ul class="nav justify-content-center mt-3">
                     <li class="nav-item">
                         <a id="letras-navbar" class="nav-link fw-bolder" href="Perfil.php"><?php echo $nome_perfil; ?></a>
@@ -43,7 +55,7 @@
             <div class="row">
                 <div class="mt-2 col-4">
                     <form>      
-                        <input id="filme_buscado" class="form-control text-dark" style="opacity:0.7;" placeholder="Buscar">
+                        <input id="filme_buscado" placeholder="">
                     </form>
                 </div>
             </div>
@@ -59,43 +71,48 @@
     ?> 
             <div class="row">
                 <div class="mt-2 col-12">
-                    <div class="card">
-                        <div class="card-body" id="resultado">
-                            <table class="table">
-                                <tr>
-                                    <th></th>
-                                    <th style="text-align:left;">Filme</th>
-                                    <th style="text-align:left;">Descricao</th>
-                                    <th style="text-align:center;">Data de Lancamento</th>
-                                </tr>
-                                <tr>
+                        <div style="border: solid 1px #8FBC8F;">
+                            <table class="table">                                                             
                                 <?php
                                     $filme_buscado = "velozes";
-                                    $url = "https://api.themoviedb.org/3/search/movie?api_key=ad6b74208be55f7885c94593518b9477&query={$filme_buscado}&language=pt-BR";
+                                    $url = "https://api.themoviedb.org/3/search/movie?api_key=ad6b74208be55f7885c94593518b9477&query=".($filme_buscado)."&language=pt-BR";
                                     $json = file_get_contents($url);
 
                                     $objeto = json_decode($json);
                                     $total_paginas = $objeto->total_pages;
 
                                     for($x=1; $x <= $total_paginas; $x++){
-                                        $url_pagina_atual = "https://api.themoviedb.org/3/search/movie?api_key=ad6b74208be55f7885c94593518b9477&query={$filme_buscado}&language=pt-BR&page={$x}";
+                                        $url_pagina_atual = "https://api.themoviedb.org/3/search/movie?api_key=ad6b74208be55f7885c94593518b9477&query=".$filme_buscado."&page={$x}&language=pt-BR";
                                         $json_pagina_atual = file_get_contents($url_pagina_atual);
                                         $objeto_atual = json_decode($json_pagina_atual);
                                         foreach($objeto_atual->results as $resultado){
-                                            $formato_imagem = "https://image.tmdb.org/t/p/w200/".$resultado->backdrop_path;
+                                            ?>
+                                <tr style="height:250px;">
+                                                <?php
+                                            if($resultado->backdrop_path == null){
+                                                $formato_imagem = "moldura.jpg";
+                                            }else{
+                                                $formato_imagem = "https://image.tmdb.org/t/p/w200/".$resultado->backdrop_path;    
+                                            }                                         
                                 ?>
-                                        <td><img src="<?php echo $formato_imagem ?>" class="img-fluid" alt="Responsive image"></td>
-                                        <td style="text-align:left;"><?php echo $resultado->title;?></td>
-                                        <td style="text-align:left; text-align: justify;"><?php echo $resultado->overview;?></td>      
-                                        <td style="text-align:center;"><?php echo date('Y',strtotime($resultado->release_date));?></td>  
-                                        </tr>
+                                    <td><img src="<?php echo $formato_imagem ?>" class="img-fluid"></td>
+                                    <td style="text-align:left;"><?php echo $resultado->title;?></td>
+                                    <td style="text-align:left; text-align: justify; width:800px; "><?php echo $resultado->overview;?></td>      
+                                    <td style="text-align:center; width:200px;"><?php echo date('Y',strtotime($resultado->release_date));?></td>
+                                    <td style="text-align:center; width:200px;">
+                                        <form method="POST" action="Inicio.php" style="margin-top: 10px;">
+                                            <input type="hidden" name="nome" value="<?php echo ($nome_perfil) ?>">
+                                            <input type="hidden" name="id_usuario" value="<?php echo ($id_usuario) ?>">
+                                            <button id="favoritar" type="submit"><img src="iconesetinha.png" style="height:10px;width:10px; padding:auto;"></button>
+                                        </form>
+                                    </td> 
+                                </tr>
                                 <?php
                                         }
                                     }
                                 ?>                                                                    
                             </table>                 
                         </div>
-                    </div>
                 </div>  
             </div>
         </div>

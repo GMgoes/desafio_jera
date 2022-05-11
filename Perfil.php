@@ -4,7 +4,6 @@
 		<title>Perfil</title>
 		<style type="text/css">
 			#background{
-				background-color:#66CDAA;
 			}
 		</style>
 
@@ -42,7 +41,7 @@
 	            	<form method="POST" action="Inicio.php">
 	            		<input type="hidden" name="nome" value="<?php echo ($auxiliar_nome) ?>">
 	            		<input type="hidden" name="id_usuario" value="<?php echo ($auxiliar_id) ?>">
-	            		<button type="submit" style="display:flex; margin:auto;" class="btn btn-outline-dark mt-5"><?php echo $umRegistro["nome_perfil"];?></button>
+	            		<button type="submit" style="display:flex; margin:auto;border: solid 1px #8FBC8F;" class="btn mt-5"><?php echo $umRegistro["nome_perfil"];?></button>
 	            	</form>
 	            </div>
 	           
