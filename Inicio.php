@@ -82,11 +82,12 @@
                                         $json_pagina_atual = file_get_contents($url_pagina_atual);
                                         $objeto_atual = json_decode($json_pagina_atual);
                                         foreach($objeto_atual->results as $resultado){
+                                            $formato_imagem = "https://image.tmdb.org/t/p/w200/".$resultado->backdrop_path;
                                 ?>
-                                        <img src="..." class="img-fluid" alt="Responsive image">
+                                        <td><img src="<?php echo $formato_imagem ?>" class="img-fluid" alt="Responsive image"></td>
                                         <td style="text-align:left;"><?php echo $resultado->title;?></td>
                                         <td style="text-align:left; text-align: justify;"><?php echo $resultado->overview;?></td>      
-                                        <td style="text-align:center;"><?php echo $resultado->release_date;?></td>  
+                                        <td style="text-align:center;"><?php echo date('Y',strtotime($resultado->release_date));?></td>  
                                         </tr>
                                 <?php
                                         }
