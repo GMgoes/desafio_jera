@@ -7,7 +7,9 @@
             #background{
             }
             #letras-navbar{
+                background-color: transparent;
                 color:#32CD32;
+                border: none;
             }      
             #filme_buscado{
                 background: url(iconelupa.png) no-repeat center right;
@@ -36,16 +38,19 @@
             <div class="mt-2" style="border: solid 1px #8FBC8F;">
                 <ul class="nav justify-content-center mt-3">
                     <li class="nav-item">
-                        <a id="letras-navbar" class="nav-link fw-bolder" href="Perfil.php"><?php echo $nome_perfil; ?></a>
-                    </li>
-                      <li class="nav-item">
-                        <a id="letras-navbar" class="nav-link fw-bolder" href="#">MINHA LISTA</a>
+                        <a id="letras-navbar" class="nav-link fw-bolder" href="Perfil.php"><?php echo($nome_perfil); ?></a>
+                    <li class="nav-item">
+                        <a id="letras-navbar" class="nav-link fw-bolder" href="Inicio.php">FAVORITOS</a>
                     </li>
                     <li class="nav-item">
-                        <a id="letras-navbar" class="nav-link fw-bolder" href="#">FILMES</a>
+                        <form method="POST" action="Filmes.php">
+                            <input type="hidden" name="nome" value="<?php echo ($nome_perfil) ?>">
+                            <input type="hidden" name="id_usuario" value="<?php echo ($id_usuario) ?>">
+                            <button id="letras-navbar" type="submit" class="nav-link fw-bolder">FILMES</button>
+                        </form>
                     </li>
                     <li class="nav-item">
-                        <a id="letras-navbar" class="nav-link fw-bolder" href="#">SÉRIES</a>
+                        <a id="letras-navbar" type="submit" class="nav-link fw-bolder" href="Series.php">SÉRIES</a>
                     </li>
                     <li class="nav-item">
                         <a id="letras-navbar" class="nav-link fw-bolder" href="Deslogar.php">SAIR</a>
@@ -69,52 +74,33 @@
         $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
     }
     ?> 
+
             <div class="row">
                 <div class="mt-2 col-12">
-                        <div style="border: solid 1px #8FBC8F;">
-                            <table class="table">                                                             
-                                <?php
-                                    $filme_buscado = "velozes";
-                                    $url = "https://api.themoviedb.org/3/search/movie?api_key=ad6b74208be55f7885c94593518b9477&query=".($filme_buscado)."&language=pt-BR";
-                                    $json = file_get_contents($url);
-
-                                    $objeto = json_decode($json);
-                                    $total_paginas = $objeto->total_pages;
-
-                                    for($x=1; $x <= $total_paginas; $x++){
-                                        $url_pagina_atual = "https://api.themoviedb.org/3/search/movie?api_key=ad6b74208be55f7885c94593518b9477&query=".$filme_buscado."&page={$x}&language=pt-BR";
-                                        $json_pagina_atual = file_get_contents($url_pagina_atual);
-                                        $objeto_atual = json_decode($json_pagina_atual);
-                                        foreach($objeto_atual->results as $resultado){
-                                            ?>
-                                <tr style="height:250px;">
-                                                <?php
-                                            if($resultado->backdrop_path == null){
-                                                $formato_imagem = "moldura.jpg";
-                                            }else{
-                                                $formato_imagem = "https://image.tmdb.org/t/p/w200/".$resultado->backdrop_path;    
-                                            }                                         
-                                ?>
-                                    <td><img src="<?php echo $formato_imagem ?>" class="img-fluid"></td>
-                                    <td style="text-align:left;"><?php echo $resultado->title;?></td>
-                                    <td style="text-align:left; text-align: justify; width:800px; "><?php echo $resultado->overview;?></td>      
-                                    <td style="text-align:center; width:200px;"><?php echo date('Y',strtotime($resultado->release_date));?></td>
-                                    <td style="text-align:center; width:200px;">
-                                        <form method="POST" action="Inicio.php" style="margin-top: 10px;">
-                                            <input type="hidden" name="nome" value="<?php echo ($nome_perfil) ?>">
-                                            <input type="hidden" name="id_usuario" value="<?php echo ($id_usuario) ?>">
-                                            <button id="favoritar" type="submit"><img src="iconesetinha.png" style="height:10px;width:10px; padding:auto;"></button>
-                                        </form>
-                                    </td> 
-                                </tr>
-                                <?php
-                                        }
-                                    }
-                                ?>                                                                    
-                            </table>                 
-                        </div>
-                </div>  
+                    <div style="border: solid 1px #8FBC8F;">
+                        <table class="table">
+                            <?php foreach ($vetorTodosregistro as $registro) { 
+                            ?>
+                            <tr>
+                                <td><img src="moldura.jpg" class="img-fluid"></td>
+                                <td style="text-align:center;"><?php echo $registro["nome"]; ?></td>
+                                <td style="text-align:left; text-align: justify; width:400px; "><?php echo $registro["descricao"]?></td>      
+                                <td style="text-align:center; width:200px;"><?php echo date('Y',strtotime($registro["data_lancamento"]));?></td>
+                                <td style="text-align:center; width:200px;">
+                                    <form method="POST" action="Inicio.php" style="margin-top: 10px;">
+                                        <input type="hidden" name="nome" value="<?php echo ($nome_perfil) ?>">
+                                        <input type="hidden" name="id_usuario" value="<?php echo ($id_usuario) ?>">
+                                        <button id="favoritar" type="submit"><img src="iconesetinha.png" style="height:10px;width:10px; padding:auto;"></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php
+                            } ?>
+                        </table>
+                    </div>
+                </div>
             </div>
+            
         </div>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

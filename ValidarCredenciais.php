@@ -27,8 +27,6 @@
 
     if(isset($validacao)){
         $_SESSION["id_usuario"] = $id;
-        $_SESSION["nome_usuario"]=$nome;
-        $_SESSION["email"]=$email;
         header("location: Perfil.php");
     }
     /*

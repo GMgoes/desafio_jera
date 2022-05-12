@@ -13,6 +13,7 @@
     $sqlprep -> bind_param("si",$nome_perfil,$vetorUmregistro["id"]);
     if($sqlprep -> execute()){
         $_SESSION["id_usuario"] = $vetorUmregistro["id"];
-        header("location:Perfil.php");
+        $_SESSION["cadastrado"] = $nome_perfil;
+        header("location:CriarConta.php");
     }
 ?>

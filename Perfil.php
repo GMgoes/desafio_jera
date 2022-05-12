@@ -11,11 +11,9 @@
 		
 	</head>
 		<?php 
+		session_start();
 		$contador = 0;
-		$auxiliar_nome = 0;
-		$auxiliar_id = 0;
-	    require_once("Conexao.php");
-	    session_start();
+	    require_once("Conexao.php");    
 	    $id_usuario = $_SESSION["id_usuario"];
 	    $sql = "select id,nome_perfil from perfil where id_usuario = '$id_usuario'";
 	    $resultadoSql = mysqli_query($conexao, $sql);
@@ -33,14 +31,14 @@
 		<?php		
 	    foreach ($vetorTodosregistro as $umRegistro){
 			$auxiliar_nome = $umRegistro["nome_perfil"];
-			$auxiliar_id = $umRegistro["id"];
+			$auxiliar_id_perfil = $umRegistro["id"];
 	    
 		?>
 	            <div class="col-3" style="margin-top: 200px;">
 	            	<img src="usuario.png" class="card-img-top border border-success" alt="imagem de usuário png">	
 	            	<form method="POST" action="Inicio.php">
 	            		<input type="hidden" name="nome" value="<?php echo ($auxiliar_nome) ?>">
-	            		<input type="hidden" name="id_usuario" value="<?php echo ($auxiliar_id) ?>">
+	            		<input type="hidden" name="id_usuario" value="<?php echo ($auxiliar_id_perfil) ?>">
 	            		<button type="submit" style="display:flex; margin:auto;border: solid 1px #8FBC8F;" class="btn mt-5"><?php echo $umRegistro["nome_perfil"];?></button>
 	            	</form>
 	            </div>
