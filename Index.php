@@ -2,21 +2,26 @@
 <html>
 	<head>
 		<title>Zilften</title>
-		<style type="text/css">
-			#background{
-			}
-			#form-login{
-				margin-top: 200px;
-			}	
-			#letras{
-				color:#32CD32
-			}		
-		</style>
+
+		<link href="CSS.css" rel="stylesheet">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">	
 	</head>
 	<body id="background">
-		<?php session_start(); ?>
 		<div class="container-fluid">
+			<div class="row">
+                <?php
+                session_start();
+                if(isset($_SESSION["cadastrado"])):
+                ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Usuário:<strong><?php echo $_SESSION["cadastrado"]; ?></strong> Cadastrado!
+                    <button type="button" class="btn-close" btn-data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php
+                    unset($_SESSION["cadastrado"]);
+                endif
+                ?>
+            </div>
 			<div class ="row justify-content-center">
 				<div id="form-login" class="col-2">
 					<form method="POST" action="ValidarCredenciais.php">

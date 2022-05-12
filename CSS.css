@@ -1,0 +1,32 @@
+#background{
+
+}
+#letras-navbar{
+	background-color: transparent;
+    color:#32CD32;
+    border: none;
+    font-family: Andale Mono, monospace;
+}
+#form-login{
+	margin-top: 200px;
+}	
+#letras{
+	color:#32CD32;
+    margin-top: 40px;
+}
+#form-criar-conta{
+    margin-top: 200px;
+}
+#filme_buscado{
+    background: url(iconelupa.png) no-repeat center right;
+    paddin: 5px;
+    border: none;
+    width: 20px;
+    height: 45px;
+   transition: all 0.5s linear;
+}#filme_buscado:focus{
+    width: 200px;
+    height: 45px;
+    border-bottom: solid 1px black;
+	outline: none;
+}

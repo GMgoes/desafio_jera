@@ -2,11 +2,8 @@
 <html>
 	<head>
 		<title>Perfil</title>
-		<style type="text/css">
-			#background{
-			}
-		</style>
 
+		<link href="CSS.css" rel="stylesheet">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">	    
 		
 	</head>
@@ -14,7 +11,11 @@
 		session_start();
 		$contador = 0;
 	    require_once("Conexao.php");    
-	    $id_usuario = $_SESSION["id_usuario"];
+	    if(isset($_SESSION["id_usuario"])){
+	    	$id_usuario = $_SESSION["id_usuario"];
+	    }else{
+	    	$id_usuario = $_POST["id_usuario"];
+	    }
 	    $sql = "select id,nome_perfil from perfil where id_usuario = '$id_usuario'";
 	    $resultadoSql = mysqli_query($conexao, $sql);
 	    $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);

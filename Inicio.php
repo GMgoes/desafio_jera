@@ -3,44 +3,34 @@
 <html>
     <head>
         <title>Zilften</title>
-        <style type="text/css">
-            #background{
-            }
-            #letras-navbar{
-                background-color: transparent;
-                color:#32CD32;
-                border: none;
-            }      
-            #filme_buscado{
-                background: url(iconelupa.png) no-repeat center right;
-                paddin: 5px;
-                border: none;
-                width: 20px;
-                height: 45px;
-                transition: all 0.5s linear;
-            }#filme_buscado:focus{
-                width: 200px;
-                height: 45px;
-                border-bottom: solid 1px black;
-                outline: none;
-            }          
-        </style>
+
+        <link href="CSS.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">    
     </head>
     <?php 
     session_start();
-    require_once("Conexao.php");
-    $nome_perfil = $_POST["nome"];
-    $id_usuario = $_POST["id_usuario"];
+    require_once("Conexao.php"); 
+    if(isset($_SESSION["nome"])){
+        $nome_perfil = $_SESSION["nome"];
+        $id_usuario = $_SESSION["id_usuario"];
+    }else{
+        $nome_perfil = $_POST["nome"];
+        $id_usuario = $_POST["id_usuario"]; 
+    }   
+    require_once("Conexao.php");    
     ?>
     <body id="background">
         <div class="container-fluid">
             <div class="mt-2" style="border: solid 1px #8FBC8F;">
                 <ul class="nav justify-content-center mt-3">
                     <li class="nav-item">
-                        <a id="letras-navbar" class="nav-link fw-bolder" href="Perfil.php"><?php echo($nome_perfil); ?></a>
+                        <?php echo('<a id="letras-navbar" href="Perfil.php">'.($nome_perfil).'</a>') ?>
                     <li class="nav-item">
-                        <a id="letras-navbar" class="nav-link fw-bolder" href="Inicio.php">FAVORITOS</a>
+                        <form method="POST" action="Inicio.php">
+                            <input type="hidden" name="nome" value="<?php echo ($nome_perfil) ?>">
+                            <input type="hidden" name="id_usuario" value="<?php echo ($id_usuario) ?>">
+                            <button id="letras-navbar" type="submit" class="nav-link fw-bolder">FAVORITOS</button>
+                        </form>
                     </li>
                     <li class="nav-item">
                         <form method="POST" action="Filmes.php">
@@ -76,29 +66,21 @@
     ?> 
 
             <div class="row">
-                <div class="mt-2 col-12">
-                    <div style="border: solid 1px #8FBC8F;">
-                        <table class="table">
-                            <?php foreach ($vetorTodosregistro as $registro) { 
-                            ?>
-                            <tr>
-                                <td><img src="moldura.jpg" class="img-fluid"></td>
-                                <td style="text-align:center;"><?php echo $registro["nome"]; ?></td>
-                                <td style="text-align:left; text-align: justify; width:400px; "><?php echo $registro["descricao"]?></td>      
-                                <td style="text-align:center; width:200px;"><?php echo date('Y',strtotime($registro["data_lancamento"]));?></td>
-                                <td style="text-align:center; width:200px;">
-                                    <form method="POST" action="Inicio.php" style="margin-top: 10px;">
-                                        <input type="hidden" name="nome" value="<?php echo ($nome_perfil) ?>">
-                                        <input type="hidden" name="id_usuario" value="<?php echo ($id_usuario) ?>">
-                                        <button id="favoritar" type="submit"><img src="iconesetinha.png" style="height:10px;width:10px; padding:auto;"></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php
-                            } ?>
-                        </table>
-                    </div>
-                </div>
+                <?php
+                foreach($vetorTodosregistro as $registro){
+                ?>
+                <div class = "col-3 mt-2">
+                        <form action = "VisualizarFilme.php" method = "POST">
+                            <input type="hidden" name="id_filme" value="<?php echo ($registro["id"]) ?>">
+                            <button type ="submit" style="background:transparent; border:none;"><img src="<?php echo ($registro["poster_filme"]) ?>" class="img-fluid rounded" style="height:300px; width:600px;"></button>
+                        </form>         
+                        <div>
+                            <p class="d-flex justify-content-center "><?php echo($registro["nome"]) ?></p>     
+                        </div>   
+                    </div> 
+                <?php  
+                }
+                ?>
             </div>
             
         </div>

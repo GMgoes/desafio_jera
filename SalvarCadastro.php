@@ -14,7 +14,7 @@
     $sqlprep = $conexao ->prepare($sql);
     $sqlprep -> bind_param("ssss",$email,$nome,$password,$nascimento);
     if($sqlprep -> execute()){
-        $_SESSION["nome_perfil"] = $nome;
+        $_SESSION["email"] = $email;
         header("location: CriarPerfil.php"); 
     }
     /*
