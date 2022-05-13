@@ -1,12 +1,18 @@
 <html>
 	<head>
-		<title>Series</title>
-
+		<title>Séries</title>
+        <meta charset="utf-8">
+        <link rel="icon" type="imagem/png" href="icone.png">
         <link href="CSS.css" rel="stylesheet">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 	</head>
 	<body>
 		<?php session_start();
+        if($_SESSION["perfil_logado"] != "true"){
+            header("location: Perfil.php");
+        }
 		require_once("Conexao.php");
 	    ?>
 		<div class="container-fluid">
@@ -54,12 +60,12 @@
                                     $formato_imagem = "https://image.tmdb.org/t/p/w300/".$resultado->poster_path;    
                                 }                                         
                     ?>
-                        <form action = "VisualizarSerie.php" method = "POST">
+                        <form action = "#" method = "POST">
                             <input type="hidden" name="id_serie" value="<?php echo ($resultado->id) ?>">
                             <button type ="submit" style="background:transparent; border:none;"><img src="<?php echo $formato_imagem ?>" class="img-fluid rounded" style="height:300px; width:600px;"></button>
                         </form>
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-9">
                                <p class="d-flex justify-content-center "><?php echo($resultado->name); ?></p> 
                             </div>
                             <div class="col-2">
@@ -70,7 +76,7 @@
                                     <input type="hidden" name="data_lancamento" value="<?php echo ($resultado->first_air_date) ?>">
                                     <input type="hidden" name="imagem" value="<?php echo ($formato_imagem) ?>">
                                     <input type="hidden" name="tipo_cinematografico" value="serie">
-                                    <button type ="submit" style="background:transparent; border:none;"><img src="favoritar.png" class="pl-4"></button>
+                                    <button type ="submit" title="Adicionar à lista" style="background:transparent; border:none;"><img src="favoritar.jpg" class="pl-4"></button>
                                 </form>
                             </div>                         
                         </div>           
@@ -81,5 +87,7 @@
                     ?>                                                                                     
             </div>       
 		</div>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 	</body>
 </html>

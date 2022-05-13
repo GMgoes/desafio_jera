@@ -1,5 +1,5 @@
 <?php
-    /*Responsável por receber os dados da classe CriarConta.php e inserir no BD, após inserção dos dados, retorna à própria página, com uma sessão, pode ser uma sessão de sucesso ou de falha, dependendo de como foi a tentativa de inserção no BD. Além disso essa classe agora está fazendo também a criação de um perfil vinculado ao usuário cadastrado.
+    /*Responsável por receber os dados da classe CriarConta.php e inserir no BD, após inserção dos dados a classe também cria um perfil vinculado ao usuário cadastrado.
 
     */
     $email = $_POST["email"];
@@ -10,22 +10,21 @@
     require_once("Conexao.php");
     session_start();
            
-    $sql = "insert into usuarios (email,nome,senha,data_nascimento) values (?,?,?,?)";
-    $sqlprep = $conexao ->prepare($sql);
-    $sqlprep -> bind_param("ssss",$email,$nome,$password,$nascimento);
-    if($sqlprep -> execute()){
-        $_SESSION["nome"] = $nome;
-        $_SESSION["email"] = $email;
-        $_SESSION["cadastrado"] = 1;
-        header("location: CriarPerfil.php"); 
-    }
-    /*
-    TODO: implementar quando o usuário tentar criar com um e-mail que já existe no BD.
-    else{
-        $_SESSION["erroCadastro"]="Erro de cadastro do usuário";
+    $sql = "select * from usuarios where email = '$email'";
+    $resultadoSql = mysqli_query($conexao, $sql);
+    $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
+    if($vetorUmregistro == null){
+        $sql = "insert into usuarios (email,nome,senha,data_nascimento) values (?,?,?,?)";
+        $sqlprep = $conexao ->prepare($sql);
+        $sqlprep -> bind_param("ssss",$email,$nome,$password,$nascimento);
+        if($sqlprep -> execute()){
+            $_SESSION["nome"] = $nome;
+            $_SESSION["email"] = $email;
+            $_SESSION["cadastrado"] = 1;
+            header("location: CriarPerfil.php"); 
+        }
+    }else{
+        $_SESSION["erro_cadastro"] = 1;
         header("location: CriarConta.php"); 
     }
-    */
     
- 
-?>

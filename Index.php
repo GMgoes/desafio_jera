@@ -2,46 +2,43 @@
 <html>
 	<head>
 		<title>Zilften</title>
-
+		<meta charset="utf-8">
+		<link rel="icon" type="imagem/png" href="icone.png">
 		<link href="CSS.css" rel="stylesheet">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">	
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 	</head>
-	<body id="background">
+	<body id="background">		
 		<div class="container-fluid">
-			<div class="row">
-                <?php
-                session_start();
-                if(isset($_SESSION["cadastrado"])):
-                ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Usuário:<strong><?php echo $_SESSION["nome"]; ?></strong> Cadastrado!
-                    <button type="button" class="btn-close" btn-data-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <?php
-                    unset($_SESSION["cadastrado"]);
-                    unset($_SESSION["nome"]);
-			        unset($_SESSION["email"]);
-                endif
-                ?>
+			<?php session_start(); 
+            if(isset($_SESSION["cadastrado"])){ ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Usuário cadastrado!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+            <?php
+            unset($_SESSION["cadastrado"]);
+            } ?>
 			<div class ="row justify-content-center">
 				<div id="form-login" class="col-2">
 					<form method="POST" action="ValidarCredenciais.php">
 				        <div class="form-group">
-					        <label><h5 id="letras">Email</h5></label>
+					        <label><h5 style="color:#32CD32;">Email</h5></label>
 					        <input type="text" class="form-control"name="email" required>
 					    </div>
-					    <div class="form-group mt-2">
-					        <label><h5 id="letras">Senha</h5></label>
+					    <div class="form-group">
+					        <label><h5 style="color:#32CD32;">Senha</h5></label>
 					        <input type="password" class="form-control" name="password" required>
 					    </div>
-					    <div class="d-grid gap-2">
-		                    <button id="letras" type="submit" class="btn btn-outline-success mt-2">Entrar</button>
-		                    <a id="letras" class="btn btn-outline-primary mt-5" href="CriarConta.php">Cadastrar</a>  
+					    <div class="d-grid gap-2 mt-2">
+		                    <button type="submit" class="btn btn-outline-success mt-5">Entrar</button>
+		                    <a class="btn btn-outline-primary mt-2" href="CriarConta.php">Cadastrar</a>  
 		                </div>		        
 			    	</form>
 				</div>
 			</div>
 		</div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 	</body>
 </html>

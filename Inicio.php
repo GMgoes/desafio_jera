@@ -2,13 +2,18 @@
 
 <html>
     <head>
-        <title>Zilften</title>
-
+        <title>Meus Filmes</title>
+        <link rel="icon" type="imagem/png" href="icone.png">
+        <meta charset="utf-8">
         <link href="CSS.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">    
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> 
     </head>
     <?php 
     session_start();
+    if($_SESSION["perfil_logado"] != "true"){
+        header("location: Perfil.php");
+    }
     require_once("Conexao.php"); 
     $nome_usuario = $_SESSION["perfil_usuario"];
     $id_perfil = $_SESSION["id_perfil"];
@@ -64,23 +69,23 @@
 
                 <div class = "col-3 mt-2">
                     <form action = "Visualizar.php" method = "POST">
-                        <input type="hidden" name="id_filme" value="<?php echo ($registro["id_filme"]) ?>">
+                        <input type="hidden" name="id_filme" value="<?php echo ($registro['id_filme']) ?>">
                         <button type ="submit" style="background:transparent; border:none;"><img src="<?php echo ($registro["poster_filme"]) ?>" class="img-fluid rounded" style="height:300px; width:600px;"></button>
                     </form>         
                     <div class="row">
-                        <div class="col-7">
+                        <div class="col-9">
                             <p class="d-flex justify-content-center "><?php echo($registro["nome"]) ?></p> 
                         </div>   
-                        <div class="col-2">
+                        <div class="col-1">
                             <form method="POST" action="DesfavoritarFilme.php">
-                                <input type="hidden" name="id_filme" value="<?php echo ($registro["id_filme"]) ?>">
-                                <button type ="submit" title="Desfavoritar Filme" style="background:transparent; border:none;"><img src="desfavoritar.png"></button>   
+                                <input type="hidden" name="id_filme" value="<?php echo ($registro['id_filme']) ?>">
+                                <button type ="submit" title="Desfavoritar Filme" style="background:transparent; border:none;"><img src="retirar.jpg"></button>   
                             </form>                        
                         </div>      
-                        <div class="col-3">
+                        <div class="col-1">
                             <form method="POST" action="MarcarAssistido.php">
-                                <input type="hidden" name="id_filme" value="<?php echo ($registro["id_filme"]) ?>">
-                                <button type ="submit" title="Marcar como assistido" style="background:transparent; border:none;"><img src="assistido.png"></button>
+                                <input type="hidden" name="id_filme" value="<?php echo ($registro['id_filme']) ?>">
+                                <button type ="submit" title="Marcar como assistido" style="background:transparent; border:none;"><img src="watched.png"></button>
                             </form> 
                         </div>                 
                     </div>  
@@ -90,7 +95,7 @@
                     
                 <div class = "col-3 mt-2">
                     <form action = "Visualizar.php" method = "POST">
-                        <input type="hidden" name="id_filme" value="<?php echo ($registro["id_filme"]) ?>">
+                        <input type="hidden" name="id_filme" value="<?php echo ($registro['id_filme']) ?>">
                         <button type ="submit" style="background:transparent; border:none;"><img src="<?php echo ($registro["poster_filme"]) ?>" class="img-fluid rounded" style="height:300px; width:600px;"></button>
                     </form>         
                     <div class="row">
@@ -99,14 +104,14 @@
                         </div>
                         <div class="col-2">
                             <form method="POST" action="DesfavoritarFilme.php">
-                                <input type="hidden" name="id_filme" value="<?php echo ($registro["id_filme"]) ?>">
-                                <button type ="submit" title="Desfavoritar Filme" style="background:transparent; border:none;"><img src="desfavoritar.png"></button>   
+                                <input type="hidden" name="id_filme" value="<?php echo ($registro['id_filme']) ?>">
+                                <button type ="submit" title="Desfavoritar Filme" style="background:transparent; border:none;"><img src="retirar.jpg"></button>   
                             </form>                        
                         </div>      
                         <div class="col-3">
                             <form method="POST" action="MarcarAssistido.php">
-                                <input type="hidden" name="id_filme" value="<?php echo ($registro["id_filme"]) ?>">
-                                <button type ="submit" title="Marcar como assistido" style="background:transparent; border:none;"><img src="assistido.png"></button>
+                                <input type="hidden" name="id_filme" value="<?php echo ($registro['id_filme']) ?>">
+                                <button type ="submit" title="Marcar como assistido" style="background:transparent; border:none;"><img src="watched.png"></button>
                             </form> 
                         </div>              
                     </div>   
@@ -123,13 +128,19 @@
 
                 <div class = "col-3 mt-2">
                     <form action = "Visualizar.php" method = "POST">
-                        <input type="hidden" name="id_filme" value="<?php echo ($registro["id_filme"]) ?>">
-                        <button type ="submit" style="background:transparent; border:none;"><img src="<?php echo ($registro["poster_filme"]) ?>" class="img-fluid rounded" style="height:300px; width:600px;"></button>
+                        <input type="hidden" name="id_filme" value="<?php echo ($registro['id_filme']) ?>">
+                        <button type ="submit" style="background:transparent; border:none;"><img src="<?php echo ($registro['poster_filme']) ?>" class="img-fluid rounded" style="height:300px; width:600px;"></button>
                     </form>         
                     <div class="row">
-                        <div class="col-7">
+                        <div class="col-10">
                             <p class="d-flex justify-content-center "><?php echo($registro["nome"]) ?></p> 
-                        </div>              
+                        </div>      
+                        <div class="col-1">
+                            <form method="POST" action="RetirarAssistido.php">
+                                <input type="hidden" name="id_filme" value="<?php echo ($registro['id_filme']) ?>">
+                                <button type ="submit" title="Remover dos Assistidos" style="background:transparent; border:none;"><img src="retirar.jpg"></button>   
+                            </form>    
+                        </div>        
                     </div>   
                 </div>
                 <?php }
@@ -138,8 +149,7 @@
             </div> 
                       
         </div>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     </body>
 </html>
