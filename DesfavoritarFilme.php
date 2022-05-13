@@ -1,4 +1,5 @@
 <?php 
+//Classe responsável por retirar o filme dos favoritos, para isso ele remove todas as informações do filme em especifico da nossa tabela filmes.
 require_once("Conexao.php");
 
     session_start();

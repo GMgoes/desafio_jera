@@ -1,4 +1,4 @@
-<!-- Classe responsável pelo formulário para criação de um usuário, utilizando método POST para envio das informações, classe destino: SalvarCadastro.php -->
+<!-- Classe responsável pelo formulário para criação de um novo usuário quando a conta já é existente, utilizando método POST para envio das informações, classe destino: SalvarNovoPerfil.php -->
 <html>
     <head>
         <title>Cadastro de Perfil</title>

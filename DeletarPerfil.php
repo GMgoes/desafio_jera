@@ -1,4 +1,5 @@
 <?php 
+//Classe responsável por deletar um perfil selecionado pelo usuário na página Perfil.php
 require_once("Conexao.php");
 
     $id_perfil = $_POST["id_perfil"];

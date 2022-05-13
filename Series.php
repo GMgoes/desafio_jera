@@ -10,12 +10,14 @@
 	</head>
 	<body>
 		<?php session_start();
+        //Validação para detectarmos se o usuário está logado ou não.
         if($_SESSION["perfil_logado"] != "true"){
             header("location: Perfil.php");
         }
 		require_once("Conexao.php");
 	    ?>
 		<div class="container-fluid">
+            <!--Menu Navbar da nossa aplicação, contém os redirecionamentos possíveis enquanto o usuário está logado. -->
 			<div class="mt-2" style="border: solid 1px #8FBC8F;">
                 <ul class="nav justify-content-center mt-3">
                     <li class="nav-item">
@@ -35,6 +37,7 @@
                     </li>
                 </ul>
             </div>  
+            <!--Aqui irá conter nossa row com todos as séres buscados na API com o query=a, divide cada série buscada em uma col de tamanho = 3, para dispor 4 séries por linha. TODO: Melhorar a exibição dessas séries, e corrigir a implementação de busca de todos as séries utilizando um parametro mais adequado -->  
 			<div class="row">                                                      
                     <?php
                     $serie_buscada = "a";
@@ -45,7 +48,7 @@
                     $total_paginas = $objeto->total_pages;
 
                     $auxiliar_paginacao = 0;
-
+                    //Com esse laço de repetição, iremos pegar apenas duas páginas de filme do nosso JSON.
                     for($x=1; $x <= 2; $x++){
                         $url_pagina_atual = "https://api.themoviedb.org/3/search/tv?api_key=ad6b74208be55f7885c94593518b9477&query=".$serie_buscada."&page={$x}&language=pt-BR";
                         $json_pagina_atual = file_get_contents($url_pagina_atual);
@@ -53,13 +56,15 @@
                         foreach($objeto_atual->results as $resultado){
                     ?>
                     <div class = "col-3 mt-2">
-                    <?php    
+                    <?php   
+                            //Nessa comparação vemos se o filme possuí um poster ou não, se ele não tiver, colocamos uma imagem genérica de ausência de imagem (Imagem em cinza);
                             if($resultado->poster_path == null){
                                 $formato_imagem = "moldura.jpg";
                                 }else{
                                     $formato_imagem = "https://image.tmdb.org/t/p/w300/".$resultado->poster_path;    
                                 }                                         
                     ?>
+                        <!--Nesse formulário será apresentado cada poster, TODO: Ao clicar no post, será direcionado à uma página que irá mostrar as informações completas da série -->
                         <form action = "#" method = "POST">
                             <input type="hidden" name="id_serie" value="<?php echo ($resultado->id) ?>">
                             <button type ="submit" style="background:transparent; border:none;"><img src="<?php echo $formato_imagem ?>" class="img-fluid rounded" style="height:300px; width:600px;"></button>
@@ -68,6 +73,7 @@
                             <div class="col-9">
                                <p class="d-flex justify-content-center "><?php echo($resultado->name); ?></p> 
                             </div>
+                            <!--Nessa parte, será o nosso formulário para passarmos os valores à SalvarFavorito.php, onde salvamos uma série na nossa tabela filmes (Seria a nossa função para adicionar a série à lista) -->
                             <div class="col-2">
                                 <form method="POST" action="SalvarFavorito.php">
                                     <input type="hidden" name="id_filme" value="<?php echo ($resultado->id) ?>">

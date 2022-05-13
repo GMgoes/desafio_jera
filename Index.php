@@ -11,6 +11,7 @@
 	<body id="background">		
 		<div class="container-fluid">
 			<?php session_start(); 
+			//Nessa parte mostramos ao usuário que deu certo a parte de cadastro de usuário, caso ele tenha vindo do processo de criar um novo usuário no site.
             if(isset($_SESSION["cadastrado"])){ ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Usuário cadastrado!</strong>
@@ -19,6 +20,7 @@
             <?php
             unset($_SESSION["cadastrado"]);
             } ?>
+            <!-- Nessa parte temos nosso formulário para Login, passamos todas as informações para a ValidarCredenciais.php fazer a validação conforme está no BD. -->
 			<div class ="row justify-content-center">
 				<div id="form-login" class="col-2">
 					<form method="POST" action="ValidarCredenciais.php">

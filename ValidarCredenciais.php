@@ -26,6 +26,7 @@
     endforeach;
 
     if(isset($validacao)){
+        //Criação de sessões que serão extremamente úteis para toda a logistica do usuário, e também para identificar se o mesmo está logado ou não.
         $_SESSION["id_usuario"] = $id;
         $_SESSION["nome"] = $nome;
         $_SESSION["email"] = $email;
@@ -36,7 +37,7 @@
     TODO: implementar quando o usuário digitar credenciais que não existem no BD.
     else{    
         $_SESSION["erro"]="Erro, usuário ou senha invalidos";
-        header("location: Login.php");
+        header("location: Index.php");
     }
     */
 ?>

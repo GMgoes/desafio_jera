@@ -1,5 +1,5 @@
 <?php 
-    //Segunda etapa da criação de um usuário novo, após a criação de um usuário, é gerado nessa classe um perfil padrão que será o principal do usuário.   
+    //Segunda etapa da criação de um perfil novo, após a criação de um novo perfil, é redirecionado à parte de listagem dos perfis existentes para aquele usuário.
     require_once("Conexao.php");
     session_start();
     $nome_perfil = $_POST["nome"];

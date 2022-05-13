@@ -11,6 +11,7 @@
 	</head>
 		<?php 
 		session_start();
+		//Validação para detectarmos se o usuário está logado ou não.
 		if($_SESSION["logado"] != true){
         	header("location: Index.php");
     	}
@@ -18,6 +19,7 @@
 	    require_once("Conexao.php");    
 	    $id_usuario = $_SESSION["id_usuario"];
 
+	    //Buscamos todos os perfis do usuário que está logado, através da sessão com o ID do USUÁRIO
 	    $sql = "select id,nome_perfil from perfil where id_usuario = '$id_usuario'";
 	    $resultadoSql = mysqli_query($conexao, $sql);
 	    $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
@@ -32,6 +34,7 @@
 			<div class="row justify-content-center">
 
 		<?php		
+		//Lista todos nossos perfis do usuário logado
 	    foreach ($vetorTodosregistro as $umRegistro){
 			$auxiliar_nome = $umRegistro["nome_perfil"];
 			$auxiliar_id_perfil = $umRegistro["id"];
@@ -55,7 +58,7 @@
 		            	</div>
 	            	</div>
 	            </div>
-	           
+	    <!-- Lógica para sabermos se o usuário possuí quatro perfis, enquanto ele não tiver quatro perfis, ele pode criar mais perfis através do botão, quando chega à 4 o botão não é exibido. -->  
 	    <?php
 	    $contador = $contador+1;
 	    }
@@ -64,7 +67,6 @@
 	    <?php
 	    if($contador < 4){
 	    ?>
-	        <!--TODO: Fazer o cadastro de novos perfis para o usuário. -->
 	        <div class="row justify-content-center">
 	        	<div class="col-2 mt-2">
 	        		<!-- TODO: Fazer a funcionalidade de cadastro de um novo perfil, a questão da quantidade máxima de perfil existentes já está sendo possível de validar (Limite = 4) -->

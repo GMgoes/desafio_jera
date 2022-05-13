@@ -1,4 +1,5 @@
 <?php 
+//Classe utilizada para podermos encontrar o filme através de uma função JS, ela nos retorna até o momento o nome do filme apenas, e há uma variação, se o usuário já marcou o filme como assistido ou não, o previsto para essa funcionalidade seria retornar todas as info do filme, principalmente o poster, então seria necessário implementar melhorias.
 session_start();
 require_once("Conexao.php");
 $filme_buscado = $_POST["busca"];

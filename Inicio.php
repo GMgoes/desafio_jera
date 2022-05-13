@@ -11,6 +11,7 @@
     </head>
     <?php 
     session_start();
+    //Validação para detectarmos se o usuário está logado ou não.
     if($_SESSION["perfil_logado"] != "true"){
         header("location: Perfil.php");
     }
@@ -20,6 +21,7 @@
     ?>
     <body id="background">
         <div class="container-fluid">
+            <!--Menu Navbar da nossa aplicação, contém os redirecionamentos possíveis enquanto o usuário está logado. -->
             <div class="mt-2" style="border: solid 1px #8FBC8F;">
                 <ul class="nav justify-content-center mt-2">
                     <li class="nav-item">
@@ -39,6 +41,7 @@
                     </li>
                 </ul>
             </div>  
+            <!--Menu para buscar os filmes que estão pertencentes à nossa tabela filmes, utilizando JS, ele retorna uma espécie de "lista de comprar", para sabermos os filmes/séries que temos até o momento, e se o usuário já assistiu ou não. -->
             <div class="row mt-4">
                 <div class="col-1">
                     <p style="font-family: Andale Mono, monospace; font-size:20px; color:#32CD32;">Buscar</p>                   
@@ -48,7 +51,8 @@
                         <input id="busca" placeholder="">
                     </form>
                 </div> 
-            </div>                
+            </div>  
+            <!-- Aqui está puxando do nosso BD todos os filmes que o usuário favoritou até o momento (Lista para assistir) -->              
             <div id="resultados" class="row"></div>           
                     <?php 
                     $sql = "select * from filmes where id_perfil = '$id_perfil'";
@@ -60,6 +64,7 @@
                         $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
                     }
                     ?> 
+             <!-- Utilização para estética do site (Linha verde) TODO: Melhorar para deixar mais elegante esse código -->
             <div class="row"><div class="col-10 mt-4" style="border: solid 1px #8FBC8F;display:flex; margin:auto;"></div></div>
             <div class="row mt-2 mb-2">             
                 <div class="col-12">
@@ -69,6 +74,7 @@
             <div class="row">
                 
                 <?php foreach($vetorTodosregistro as $registro){
+                    //Fazendo essa verificação para saber se o filme já foi visto pelo usuário, caso não ele ficará na lista para assistir
                     if($registro["tipo_cinematografico"] == "filme" && $registro["watched"] != "true"){ ?>
 
                 <div class = "col-3 mt-2">
@@ -94,7 +100,7 @@
                         </div>                 
                     </div>  
                 </div> 
-                 
+                 <!-- Fazendo essa verificação para saber se a série já foi visto pelo usuário, caso não ele ficará na lista para assistir -->
                 <?php }else if($registro["tipo_cinematografico"] == "serie" && $registro["watched"] != "true"){ ?>
                     
                 <div class = "col-3 mt-2">
@@ -123,11 +129,13 @@
                 
                 <?php }    
                 } ?>
+                 <!-- Utilização para estética do site (Linha verde) TODO: Melhorar para deixar mais elegante esse código -->
                 <div class="row"><div class="col-10 mt-4" style="border: solid 1px #8FBC8F;display:flex; margin:auto;"></div></div>
                 <div class="row mt-2 mb-2">
                     <p style="font-family: Andale Mono, monospace; font-size:50px; color:#32CD32;text-align: center;">Filmes já assistidos</p>
                 </div> 
                 <?php foreach($vetorTodosregistro as $registro){
+                    //Com essa verificação conseguimos ver se o usuário já viu esse filme ou série, e listar somente os que já foram vistos
                     if($registro["watched"] == "true"){ ?>
 
                 <div class = "col-3 mt-2">

@@ -1,4 +1,5 @@
 <?php 
+    //Com essa classe atualizamos nossa tabela filmes, com o id do filme, colocamos ele como não assistido até o momento, para caso o usuário tenha marcado incorretamente o filme como assistido.
     require_once("Conexao.php");
     session_start();
     $id_filme = $_POST["id_filme"];
