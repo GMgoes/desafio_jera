@@ -16,7 +16,7 @@
                         <a id="letras-navbar" class="nav-link fw-bolder" href="Perfil.php"><?php echo $_SESSION["perfil_usuario"]; ?></a>
                     </li>
                     <li class="nav-item">
-                        <a id="letras-navbar" class="nav-link fw-bolder" href="Inicio.php">Favoritos</a>
+                        <a id="letras-navbar" class="nav-link fw-bolder" href="Inicio.php">Minha Lista</a>
                     </li>
                     <li class="nav-item">
                         <a id="letras-navbar" class="nav-link fw-bolder" href="Filmes.php">Filmes</a>
@@ -70,16 +70,16 @@
                                     <input type="hidden" name="data_lancamento" value="<?php echo ($resultado->first_air_date) ?>">
                                     <input type="hidden" name="imagem" value="<?php echo ($formato_imagem) ?>">
                                     <input type="hidden" name="tipo_cinematografico" value="serie">
-                                    <button type ="submit" style="background:transparent; border:none;"><img src="computador.png" class="pl-4"></button>
+                                    <button type ="submit" style="background:transparent; border:none;"><img src="favoritar.png" class="pl-4"></button>
                                 </form>
-                            </div>                            
+                            </div>                         
                         </div>           
                     </div> 
                     <?php  
                         }
                     }
                     ?>                                                                                     
-            </div>
+            </div>       
 		</div>
 	</body>
 </html>

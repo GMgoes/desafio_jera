@@ -9,7 +9,7 @@
         session_start();
         require_once("Conexao.php");
         $nome_usuario = $_SESSION["perfil_usuario"];
-        $id_perfil = $_SESSION["perfil_usuario"];
+        $id_perfil = $_SESSION["id_perfil"];
         ?>
 	<body>
 		<div class="container-fluid">
@@ -19,7 +19,7 @@
                         <a id="letras-navbar" class="nav-link fw-bolder" href="Perfil.php"><?php echo $nome_usuario ?></a>
                     </li>
                     <li class="nav-item">
-                        <a id="letras-navbar" class="nav-link fw-bolder" href="Inicio.php">Favoritos</a>
+                        <a id="letras-navbar" class="nav-link fw-bolder" href="Inicio.php">Minha Lista</a>
                     </li>
                     <li class="nav-item">
                         <a id="letras-navbar" class="nav-link fw-bolder" href="Filmes.php">Filmes</a>
@@ -75,7 +75,7 @@
                                     <input type="hidden" name="tipo_cinematografico" value="filme">
                                     <button type ="submit" style="background:transparent; border:none;"><img src="favoritar.png" class="pl-4"></button>
                                 </form>
-                            </div>                            
+                            </div>                         
                         </div>                                           
                     </div>
                     <?php  
