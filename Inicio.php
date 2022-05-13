@@ -39,27 +39,31 @@
                     </li>
                 </ul>
             </div>  
-            <div class="row">
-                <div class="mt-2 col-4">
-                    <form>      
-                        <input id="filme_buscado" placeholder="">
+            <div class="row mt-4">
+                <div class="col-1">
+                    <p style="font-family: Andale Mono, monospace; font-size:20px; color:#32CD32;">Buscar</p>                   
+                </div> 
+                <div class="col-4">
+                    <form method="POST" action="">      
+                        <input id="busca" placeholder="">
                     </form>
-                </div>
-            </div>
-    <?php 
-    $sql = "select * from filmes where id_perfil = '$id_perfil'";
-    $resultadoSql = mysqli_query($conexao, $sql);
-    $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
-    $vetorTodosregistro = array();
-    while($vetorUmregistro != null){
-        array_push($vetorTodosregistro, $vetorUmregistro);
-        $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
-    }
-    ?> 
-        <div class="row mt-2 mb-2">
-                <p style="font-family: Andale Mono, monospace; font-size:50px; color:#32CD32;">Minha Lista</p>
-                <div class="col-12 justify-content-center">
-                    
+                </div> 
+            </div>                
+            <div id="resultados" class="row"></div>           
+                    <?php 
+                    $sql = "select * from filmes where id_perfil = '$id_perfil'";
+                    $resultadoSql = mysqli_query($conexao, $sql);
+                    $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
+                    $vetorTodosregistro = array();
+                    while($vetorUmregistro != null){
+                        array_push($vetorTodosregistro, $vetorUmregistro);
+                        $vetorUmregistro = mysqli_fetch_assoc($resultadoSql);
+                    }
+                    ?> 
+            <div class="row"><div class="col-10 mt-4" style="border: solid 1px #8FBC8F;display:flex; margin:auto;"></div></div>
+            <div class="row mt-2 mb-2">             
+                <div class="col-12">
+                    <p style="font-family: Andale Mono, monospace; font-size:50px; color:#32CD32; text-align: center;">Minha Lista</p>
                 </div>
             </div> 
             <div class="row">
@@ -121,7 +125,7 @@
                 } ?>
                 <div class="row"><div class="col-10 mt-4" style="border: solid 1px #8FBC8F;display:flex; margin:auto;"></div></div>
                 <div class="row mt-2 mb-2">
-                    <p style="font-family: Andale Mono, monospace; font-size:50px; color:#32CD32;">Filmes já assistidos</p>
+                    <p style="font-family: Andale Mono, monospace; font-size:50px; color:#32CD32;text-align: center;">Filmes já assistidos</p>
                 </div> 
                 <?php foreach($vetorTodosregistro as $registro){
                     if($registro["watched"] == "true"){ ?>
@@ -151,5 +155,14 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+        <script>
+            $('#busca').keyup(function(){
+                var busca = $("#busca").val();
+                $.post('BuscarFilme.php',{busca:busca},function(data){
+                    $("#resultados").html(data);
+                });
+            });
+        </script>
     </body>
 </html>

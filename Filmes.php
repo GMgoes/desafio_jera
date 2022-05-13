@@ -36,7 +36,18 @@
                         <a id="letras-navbar" class="nav-link fw-bolder" href="Deslogar.php">Sair</a>
                     </li>
                 </ul>
-            </div>   
+            </div>
+            <div class="row mt-4">
+                <div class="col-1">
+                    <p style="font-family: Andale Mono, monospace; font-size:20px; color:#32CD32;">Buscar</p>                   
+                </div> 
+                <div class="col-4">
+                    <form method="POST" action="">      
+                        <input id="busca" placeholder="">
+                    </form>
+                </div> 
+            </div> 
+            <div class="row"><div class="col-10 mt-4" style="border: solid 1px #8FBC8F;display:flex; margin:auto;"></div></div>   
 			<div class="row">                                                      
                     <?php
                     $filme_buscado = "a";
