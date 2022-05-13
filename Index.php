@@ -14,11 +14,13 @@
                 if(isset($_SESSION["cadastrado"])):
                 ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Usuário:<strong><?php echo $_SESSION["cadastrado"]; ?></strong> Cadastrado!
+                    Usuário:<strong><?php echo $_SESSION["nome"]; ?></strong> Cadastrado!
                     <button type="button" class="btn-close" btn-data-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <?php
                     unset($_SESSION["cadastrado"]);
+                    unset($_SESSION["nome"]);
+			        unset($_SESSION["email"]);
                 endif
                 ?>
             </div>
